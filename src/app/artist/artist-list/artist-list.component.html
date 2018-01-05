@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Artists</h1>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="redirectNewArtistPage()">New Artist</button>
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Spotify</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let artist of artists">
+            <th scope="row">{{artist.id}}</th>
+            <td>{{artist.name}}</td>
+            <td>{{artist.spotifyLink}}</td>
+            <td>
+              <button type="button" class="btn btn-success" (click)="editArtistPage(artist)">Edit</button>
+              <button type="button" class="btn btn-danger" (click)="deleteArtist(artist)">Delete</button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>
