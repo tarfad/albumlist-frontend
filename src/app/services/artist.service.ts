@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Artist } from '../model/Artist';
-//import { HttpClient } from '@angular/common/http';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,11 +9,6 @@ import { Observable } from "rxjs/Observable";
 export class ArtistService {
 
   private apiUrl = 'http://localhost:8080/api/artists/';
-  public apps: Artist[];
-
-  //constructor(private http: HttpClient) {
-  //  console.info('ArtistService-constructor');
-  //}
 
   constructor(private http: Http) { }
 

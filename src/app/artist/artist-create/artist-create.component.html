@@ -20,7 +20,7 @@
           </fieldset>
 
           <button type="submit" class="btn btn-primary"  [disabled]="!artistForm.valid" >Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
+          <button type="button" class="btn btn-warning" (click)="redirectArtistPage()">Cancel</button>
           <pre>{{artistForm.value | json}}</pre>
         </form>
       </section>

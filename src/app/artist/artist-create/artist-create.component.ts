@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ArtistService} from "../artist.service";
+import {ArtistService} from "../../services/artist.service";
 import {Artist} from "../../model/Artist";
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -74,7 +74,7 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
     this.router.navigate(['/artist']);
   }
 
-  redirectUserPage() {
+  redirectArtistPage() {
     this.router.navigate(['/artist']);
 
   }

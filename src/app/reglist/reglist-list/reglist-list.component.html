@@ -1,0 +1,360 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+
+          <fieldset>
+            <div class="form-group">
+              <label>Year</label>
+              <select class="form-control"
+                      formControlName="theYear"
+                      (ngModelChange)="doTriggerYear($event)"
+                      [(ngModel)]="theYear"
+              >
+                <option value="-1">Please select a year</option>
+                <option *ngFor="let y of years"
+                        [value]="y">
+                  {{ y }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>User</label>
+              <select class="form-control"
+                      formControlName="theUser"
+                      (ngModelChange)="doTriggerUser($event)"
+                      [(ngModel)]="theUser"
+              >
+                <option value="-1">Please select an user</option>
+                <option *ngFor="let u of users"
+                        [value]="u.id">
+                  {{ u.fullName }}
+                </option>
+              </select>
+            </div>
+
+            <HR>
+
+            <div class="form-group">
+              <label>#1</label>
+              <select class="form-control"
+                      formControlName="theAlbum1"
+                      (ngModelChange)="doTriggerAlbum(1, $event)"
+                      [(ngModel)]="theAlbum1"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#2</label>
+              <select class="form-control"
+                      formControlName="theAlbum2"
+                      (ngModelChange)="doTriggerAlbum(2, $event)"
+                      [(ngModel)]="theAlbum2"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label>#3</label>
+              <select class="form-control"
+                      formControlName="theAlbum3"
+                      (ngModelChange)="doTriggerAlbum(3, $event)"
+                      [(ngModel)]="theAlbum3"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#4</label>
+              <select class="form-control"
+                      formControlName="theAlbum4"
+                      (ngModelChange)="doTriggerAlbum(4, $event)"
+                      [(ngModel)]="theAlbum4"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+              <label>#5</label>
+              <select class="form-control"
+                      formControlName="theAlbum5"
+                      (ngModelChange)="doTriggerAlbum(5, $event)"
+                      [(ngModel)]="theAlbum5"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#6</label>
+              <select class="form-control"
+                      formControlName="theAlbum6"
+                      (ngModelChange)="doTriggerAlbum(6, $event)"
+                      [(ngModel)]="theAlbum6"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#7</label>
+              <select class="form-control"
+                      formControlName="theAlbum7"
+                      (ngModelChange)="doTriggerAlbum(7, $event)"
+                      [(ngModel)]="theAlbum7"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#8</label>
+              <select class="form-control"
+                      formControlName="theAlbum8"
+                      (ngModelChange)="doTriggerAlbum(8, $event)"
+                      [(ngModel)]="theAlbum8"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#9</label>
+              <select class="form-control"
+                      formControlName="theAlbum9"
+                      (ngModelChange)="doTriggerAlbum(9, $event)"
+                      [(ngModel)]="theAlbum9"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#10</label>
+              <select class="form-control"
+                      formControlName="theAlbum10"
+                      (ngModelChange)="doTriggerAlbum(10, $event)"
+                      [(ngModel)]="theAlbum10"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+
+
+            <div class="form-group">
+              <label>#11</label>
+              <select class="form-control"
+                      formControlName="theAlbum11"
+                      (ngModelChange)="doTriggerAlbum(11, $event)"
+                      [(ngModel)]="theAlbum11"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#12</label>
+              <select class="form-control"
+                      formControlName="theAlbum12"
+                      (ngModelChange)="doTriggerAlbum(12, $event)"
+                      [(ngModel)]="theAlbum12"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#13</label>
+              <select class="form-control"
+                      formControlName="theAlbum13"
+                      (ngModelChange)="doTriggerAlbum(13, $event)"
+                      [(ngModel)]="theAlbum13"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#14</label>
+              <select class="form-control"
+                      formControlName="theAlbum14"
+                      (ngModelChange)="doTriggerAlbum(14, $event)"
+                      [(ngModel)]="theAlbum14"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#15</label>
+              <select class="form-control"
+                      formControlName="theAlbum15"
+                      (ngModelChange)="doTriggerAlbum(15, $event)"
+                      [(ngModel)]="theAlbum15"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#16</label>
+              <select class="form-control"
+                      formControlName="theAlbum16"
+                      (ngModelChange)="doTriggerAlbum(16, $event)"
+                      [(ngModel)]="theAlbum16"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#17</label>
+              <select class="form-control"
+                      formControlName="theAlbum17"
+                      (ngModelChange)="doTriggerAlbum(17, $event)"
+                      [(ngModel)]="theAlbum17"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#18</label>
+              <select class="form-control"
+                      formControlName="theAlbum18"
+                      (ngModelChange)="doTriggerAlbum(18, $event)"
+                      [(ngModel)]="theAlbum18"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#19</label>
+              <select class="form-control"
+                      formControlName="theAlbum19"
+                      (ngModelChange)="doTriggerAlbum(19, $event)"
+                      [(ngModel)]="theAlbum19"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>#20</label>
+              <select class="form-control"
+                      formControlName="theAlbum20"
+                      (ngModelChange)="doTriggerAlbum(20, $event)"
+                      [(ngModel)]="theAlbum20"
+              >
+                <option value="-1">Please select an album</option>
+                <option *ngFor="let a of albums"
+                        [value]="a.id">
+                  {{ a.artist.name + '  -  ' + a.name }}
+                </option>
+              </select>
+            </div>
+
+
+
+
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!albumForm.valid" >Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectAlbumPage()">Cancel</button>
+          <pre>{{albumForm.value | json}}</pre>
+        </form>
+
+      </section>
+    </div>
+  </div>
+</div>

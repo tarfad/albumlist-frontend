@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Artist } from "../../model/Artist";
-import { ArtistService } from "../artist.service";
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { Artist } from "../../model/Artist";
+import { ArtistService } from "../../services/artist.service";
 
 @Component({
   selector: 'app-artist-list',
@@ -43,7 +44,7 @@ export class ArtistListComponent implements OnInit {
   }
 
   deleteArtist(artist: Artist) {
-    console.log('Delete User: ' + artist.name);
+    console.log('Delete Artist: ' + artist.name);
     let promise = this.artistService.deleteArtist(artist.id);
     this.reloadPage();
     console.log('done');

@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { ArtistModule } from './artist/artist.module';
 import { AlbumModule } from './album/album.module';
+import { ReglistModule } from './reglist/reglist.module';
+import { YearlistModule } from './yearlist/yearlist.module';
+
 import { HttpModule }    from '@angular/http';
 
 @NgModule({
@@ -19,7 +22,9 @@ import { HttpModule }    from '@angular/http';
     AppRoutingModule,
     UserModule,
     ArtistModule,
-    AlbumModule
+    AlbumModule,
+    ReglistModule,
+    YearlistModule
   ],
   providers: [],
   bootstrap: [AppComponent]

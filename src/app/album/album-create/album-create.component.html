@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+
+          <fieldset>
+            <div class="form-group">
+              <label>Artist</label>
+              <select class="form-control"
+                      formControlName="theArtist">
+                <option value="-1">Please select an artist</option>
+                <option *ngFor="let a of artists"
+                        [value]="a.id">
+                  {{ a.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Album name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name">
+            </div>
+
+            <div class="form-group">
+              <label>Spotify</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="spotifyLink">
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!albumForm.valid" >Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectAlbumPage()">Cancel</button>
+          <pre>{{albumForm.value | json}}</pre>
+        </form>
+
+      </section>
+    </div>
+  </div>
+</div>

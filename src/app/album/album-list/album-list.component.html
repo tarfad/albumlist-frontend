@@ -5,13 +5,13 @@
         <header class="header">
           <div class="row">
             <div class="col-md-4">
-              <h1>Artists</h1>
+              <h1>Album</h1>
             </div>
             <div class="col-md-6">
 
             </div>
             <div class="col-md-2">
-              <button type="button" class="btn btn-primary" (click)="redirectNewArtistPage()">New Artist</button>
+              <button type="button" class="btn btn-primary" (click)="redirectNewAlbumPage()">New Album</button>
             </div>
           </div>
 
@@ -23,20 +23,20 @@
         <table class="table">
           <thead>
           <tr>
-            <!--<th>#</th>-->
+            <th>Artist</th>
             <th>Name</th>
             <th>Spotify</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let artist of artists">
-            <!--<th scope="row">{{artist.id}}</th>-->
-            <td>{{artist.name}}</td>
-            <td>{{artist.spotifyLink}}</td>
+          <tr *ngFor="let album of albums">
+            <td>{{album.artist.name}}</td>
+            <td>{{album.name}}</td>
+            <td>{{album.spotifyLink}}</td>
             <td>
-              <button type="button" class="btn btn-success" (click)="editArtistPage(artist)">Edit</button>
-              <button type="button" class="btn btn-danger" (click)="deleteArtist(artist)">Delete</button>
+              <button type="button" class="btn btn-success" (click)="editAlbumPage(album)">Edit</button>
+              <button type="button" class="btn btn-danger" (click)="deleteAlbum(album)">Delete</button>
             </td>
           </tr>
 
