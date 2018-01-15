@@ -1,42 +1,54 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <form novalidate [formGroup]="albumForm" (ngSubmit)="onSubmit()">
       <section>
-        <form novalidate [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Vote</h1>
+            </div>
+              <fieldset>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Year</label>
+                    <select class="form-control"
+                            formControlName="theYear"
+                            (ngModelChange)="doTriggerYear($event)"
+                            [(ngModel)]="theYear"
+                    >
+                      <option value="-1">Please select a year</option>
+
+                      <option *ngFor="let y of years"
+                              [value]="y">
+                        {{ y }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>User</label>
+                    <select class="form-control"
+                            formControlName="theUser"
+                            (ngModelChange)="doTriggerUser($event)"
+                            [(ngModel)]="theUser"
+                    >
+                      <option value="-1">Please select an user</option>
+                      <option *ngFor="let u of users"
+                              [value]="u.id">
+                        {{ u.fullName }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+          </div>
+        </header>
+      </section>
+      <section class="main">
 
           <fieldset>
-            <div class="form-group">
-              <label>Year</label>
-              <select class="form-control"
-                      formControlName="theYear"
-                      (ngModelChange)="doTriggerYear($event)"
-                      [(ngModel)]="theYear"
-              >
-                <option value="-1">Please select a year</option>
-                <option *ngFor="let y of years"
-                        [value]="y">
-                  {{ y }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>User</label>
-              <select class="form-control"
-                      formControlName="theUser"
-                      (ngModelChange)="doTriggerUser($event)"
-                      [(ngModel)]="theUser"
-              >
-                <option value="-1">Please select an user</option>
-                <option *ngFor="let u of users"
-                        [value]="u.id">
-                  {{ u.fullName }}
-                </option>
-              </select>
-            </div>
-
-            <HR>
-
             <div class="form-group">
               <label>#1</label>
               <select class="form-control"
@@ -44,10 +56,10 @@
                       (ngModelChange)="doTriggerAlbum(1, $event)"
                       [(ngModel)]="theAlbum1"
               >
-                <option value="-1">Please select an album</option>
+                <option value="-1" class="bg-danger text-danger text-white">Please select an album</option>
                 <option *ngFor="let a of albums"
                         [value]="a.id">
-                  {{ a.artist.name + '  -  ' + a.name }}
+                  {{ a.artist.name + '  -  ' + a.name}}
                 </option>
               </select>
             </div>
@@ -66,7 +78,6 @@
                 </option>
               </select>
             </div>
-
 
             <div class="form-group">
               <label>#3</label>
@@ -97,10 +108,6 @@
                 </option>
               </select>
             </div>
-
-
-
-
 
             <div class="form-group">
               <label>#5</label>
@@ -352,9 +359,10 @@
           <button type="submit" class="btn btn-primary"  [disabled]="!albumForm.valid" >Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectAlbumPage()">Cancel</button>
           <pre>{{albumForm.value | json}}</pre>
-        </form>
+
 
       </section>
+      </form>
     </div>
   </div>
 </div>

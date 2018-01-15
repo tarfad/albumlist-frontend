@@ -1,18 +1,48 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col vertical-align: middle">
       <section>
         <header class="header">
           <div class="row">
-            <div class="col-md-4">
-              <h1>Album</h1>
-            </div>
-            <div class="col-md-6">
+            <form novalidate [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+              <div class="col-md-4 vertical-align: middle">
+                <h1>Album</h1>
+              </div>
 
-            </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-primary" (click)="redirectNewAlbumPage()">New Album</button>
-            </div>
+
+              <div class="col-md-4 vertical-align: middle">
+                <div class="form-group">
+                  <label>Search</label>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="artistSearch">
+                </div>
+              </div>
+
+              <div class="col-md-2 vertical-align: middle">
+                <div class="form-group" aria-hidden="true">
+                  <label>Year</label>
+                  <select class="form-control"
+                          formControlName="theYear"
+                          (ngModelChange)="doTriggerYear($event)"
+                          [(ngModel)]="theYear"
+                  >
+                    <option value="-1">Please select a year</option>
+
+                    <option *ngFor="let y of years"
+                            [value]="y">
+                      {{ y }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-2 vertical-align: middle">
+                <button type="button" class="btn btn-primary" (click)="redirectNewAlbumPage()">New Album</button>
+              </div>
+            </form>
           </div>
 
         </header>
@@ -20,23 +50,31 @@
 
       <section class="main">
 
-        <table class="table">
+        <table class="table table-hover table-condensed">
           <thead>
           <tr>
             <th>Artist</th>
             <th>Name</th>
-            <th>Spotify</th>
-            <th></th>
+            <th>Year</th>
+            <th width="100px">Spotify</th>
+            <th width="100px">Action</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let album of albums">
             <td>{{album.artist.name}}</td>
             <td>{{album.name}}</td>
-            <td>{{album.spotifyLink}}</td>
+            <td>{{album.year}}</td>
             <td>
-              <button type="button" class="btn btn-success" (click)="editAlbumPage(album)">Edit</button>
-              <button type="button" class="btn btn-danger" (click)="deleteAlbum(album)">Delete</button>
+              <div *ngIf="album.spotifyLink != '' && album.spotifyLink != null">
+                <a target="_blank" href="{{album.spotifyLink}}">
+                  <i class="fa fa-spotify" aria-hidden="true" ></i>
+                </a>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-success btn-xs" (click)="editAlbumPage(album)">Edit</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="deleteAlbum(album)">Delete</button>
             </td>
           </tr>
 

@@ -8,17 +8,21 @@ import {Album} from "../../model/Album";
 import {Artist} from "../../model/Artist";
 import {ActivatedRoute, Router} from "@angular/router";
 
+import {ConfigService} from "../../config/config.service";
+
 
 @Component({
   selector: 'app-album-create',
   templateUrl: './album-create.component.html',
   styleUrls: ['./album-create.component.css'],
-  providers: [AlbumService, ArtistService]
+  providers: [ConfigService, AlbumService, ArtistService]
 })
 export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit {
 
   id: number;
   album: Album;
+
+  years: number[];
 
   artistId: number;
   artists: Artist[];
@@ -28,17 +32,21 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private configService: ConfigService,
               private albumService: AlbumService,
               private artistService: ArtistService) { }
 
   ngOnInit() {
     console.info('album-create-ngOnInit');
 
+    this.years = this.configService.getYears();
+
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
     });
 
     this.albumForm = new FormGroup({
+      theYear: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       spotifyLink: new FormControl(''),
       theArtist: new FormControl('')
@@ -55,11 +63,12 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
         this.album = album;
         this.id = album.id;
         this.artistId = album.artist.id;
-        console.log('this.artistId in find: ' + this.artistId)
+
         this.albumForm.patchValue({
           name: album.name,
           spotifyLink: album.spotifyLink,
-          theArtist: album.artist.id
+          theArtist: album.artist.id,
+          theYear: album.year
         });
       }
       );
@@ -91,7 +100,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
             '');
         let user: Album = new Album(this.id,
           this.albumForm.controls['name'].value,
-          this.albumForm.controls['spotifyLink'].value, null);
+          this.albumForm.controls['spotifyLink'].value,
+          null,
+          this.albumForm.controls['theYear'].value);
         let albumPromise = this.albumService.updateAlbum(user);
       } else {
         let artistBean: Artist =
@@ -101,7 +112,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
         let albumBean: Album = new Album(null,
           this.albumForm.controls['name'].value,
           this.albumForm.controls['spotifyLink'].value,
-          artistBean);
+          artistBean,
+          this.albumForm.controls['theYear'].value
+          );
         let albumPromise2 = this.albumService.saveAlbum(albumBean);
       }
 

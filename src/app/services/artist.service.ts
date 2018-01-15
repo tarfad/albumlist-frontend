@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Artist } from '../model/Artist';
-import { Headers, Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Artist} from '../model/Artist';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ArtistService {
@@ -51,4 +50,12 @@ export class ArtistService {
     return Promise.reject(error.message || error);
   }
 
+  searchAtists(currentSearchString: string): Promise<Artist[]>  {
+    let param = {params: {'searchString': currentSearchString}}
+    console.log(param);
+    return this.http.get(this.apiUrl + "search/",param )
+      .toPromise()
+      .then(response => response.json() as Artist[])
+      .catch(this.handleError);
+  }
 }

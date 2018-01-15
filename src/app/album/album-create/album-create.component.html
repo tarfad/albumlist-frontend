@@ -25,6 +25,21 @@
             </div>
 
             <div class="form-group">
+              <label>Year</label>
+              <select class="form-control"
+                      formControlName="theYear"
+                      [(ngModel)]="theYear"
+              >
+                <option value="-1">Please select a year</option>
+
+                <option *ngFor="let y of years"
+                        [value]="y">
+                  {{ y }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
               <label>Spotify</label>
               <input type="text"
                      class="form-control"

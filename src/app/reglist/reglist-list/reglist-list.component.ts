@@ -3,16 +3,19 @@ import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
-import {UserService} from "../../services/user.service";
 import {User} from "../../model/User";
-import {AlbumService} from "../../services/album.service";
 import {Album} from "../../model/Album";
+import {UserService} from "../../services/user.service";
+import {AlbumService} from "../../services/album.service";
+import {AlbumPlaceService} from "../../services/albumplace.service";
+import {ConfigService} from "../../config/config.service";
+import {AlbumPlaceBean} from "../../beans/AlbumPlaceBean";
 
 @Component({
   selector: 'app-reglist-list',
   templateUrl: './reglist-list.component.html',
   styleUrls: ['./reglist-list.component.css'],
-  providers: [UserService, AlbumService]
+  providers: [ConfigService, UserService, AlbumService, AlbumPlaceService]
 })
 export class ReglistListComponent implements OnInit, OnChanges {
 
@@ -28,14 +31,21 @@ export class ReglistListComponent implements OnInit, OnChanges {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private configService: ConfigService,
               private userService: UserService,
-              private albumService: AlbumService
-  ) { }
+              private albumService: AlbumService,
+              private albumPlaceService: AlbumPlaceService
+  ) {
+    console.log('ReglistListComponent - constructor')
+  }
 
   ngOnInit() {
 
+    this.years = this.configService.getYears();
+
     this.currentYear = -1;
     this.currentUser = -1;
+
 
     this.albumForm = new FormGroup({
       theYear: new FormControl('', Validators.required),
@@ -62,72 +72,90 @@ export class ReglistListComponent implements OnInit, OnChanges {
       theAlbum20: new FormControl('')
     });
 
-    this.years = [
-      2001,
-      2002,
-      2003,
-      2004,
-      2005,
-      2006
-    ];
-
-    this.albumForm.patchValue( {theYear: 2004});
-
     this.userService.getUsers()
       .then(users => this.users = users );
-
-    this.albumService.getAlbumsByYear(2017).
-    then(albums => this.albums = albums);
-
-    let a = JSON.stringify(this.albums);
-    console.log(a);
-
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges');
-    for (let propName in changes) {
-      let change = changes[propName];
-      let curVal  = JSON.stringify(change.currentValue);
-      let prevVal = JSON.stringify(change.previousValue);
-
-      console.log(curVal);
-      console.log(prevVal);
-    }
   }
 
   doTriggerYear(newYear){
-    console.log('doTriggerYear = ' + newYear);
-    this.currentYear = newYear;
-    if(this.currentUser == null || this.currentUser == -1) {
-      console.log("No current user")
+    console.log('doTriggerYear: ' + newYear);
+
+    if(newYear == null) {
+      this.currentYear = -1;
+      this.albums = [];
     }
     else {
-      console.log('currentUser = ' + this.currentUser);
-    }
+      this.currentYear = newYear;
+      this.albumService.getAlbumsByYear(this.currentYear).
+        then(albums => {
+          this.albums = albums;
+      });
 
-/*
-    this.albumService.getAlbumsByYear(this.currentYear).
-    then(albums => this.albums = albums);
-*/
+    }
+    this.setPlaces();
   }
 
   doTriggerUser(newUser) {
-    console.log('doTriggerUser = ' + newUser);
-    this.currentUser = newUser;
-    if (this.currentYear == null || this.currentYear == -1) {
-      console.log("No current year")
+    console.log('doTriggerUser: ' + newUser);
+    if(newUser == null) {
+      this.currentUser = -1;
     }
     else {
-      console.log('currentYear = ' + this.currentYear);
+      this.currentUser = newUser;
+    }
+    this.setPlaces();
+  }
+
+  setPlaces() {
+    console.log()
+    if (this.currentYear == -1 || this.currentUser == -1) {
+      for(let place=1; place<=20;place++) {
+        this.albumForm.get('theAlbum' + place).enable();
+        this.albumForm.get('theAlbum'+place).patchValue(-1);
+        this.albumForm.get('theAlbum'+place).disable();
+      }
+    }
+    else {
+      for (let place = 1; place <= 20; place++) {
+        this.albumForm.get('theAlbum' + place).enable();
+        this.albumForm.get('theAlbum' + place).patchValue(-1);
+      }
+
+      this.albumPlaceService.getAlbumsByYearAndUser(this.currentYear, this.currentUser).then(places => {
+          for (let place of places) {
+            this.albumForm.get('theAlbum' + place.place).patchValue(place.album.id);
+          }
+        }
+      );
     }
   }
 
   doTriggerAlbum(place, newAlbum){
-    console.log('doTriggerAlbum = ' + newAlbum);
-    console.log('place = ' + place);
 
+  }
+
+  onSubmit() {
+    console.log('onSubmit');
+    let regBean: AlbumPlaceBean = new AlbumPlaceBean();
+    regBean.userId = this.currentUser;
+    regBean.year = this.currentYear;
+
+    for(let place=1; place<=20;place++) {
+      regBean.albums[place -1] = this.albumForm.get('theAlbum'+place).value;
+      console.log(place + ' -> ' + this.albumForm.get('theAlbum'+place).value);
+    }
+
+    console.log(JSON.stringify(regBean));
+
+    this.albumPlaceService.updateAlbumList(regBean);
+
+    this.albumForm.patchValue({
+      theUser: -1
+    });
+
+    this.doTriggerUser(-1);
   }
 
 }

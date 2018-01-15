@@ -29,9 +29,24 @@ export class AlbumService {
   }
 
   getAlbumsByYear(year: number):  Promise<Album[]> {
-    console.log('AlbumService: getAlbums');
+    console.log('getAlbumsByYear: ' + year);
+
     console.log('Call: ' + this.apiUrl + "year/" + year);
     return this.http.get(this.apiUrl + "year/" + year)
+      .toPromise()
+      .then(response => response.json() as Album[])
+      .catch(this.handleError);
+  }
+
+  searchAlbums(year: number, currentSearchString: string):  Promise<Album[]> {
+    console.log('searchAlbums: ' + year);
+    if(year == null) {
+      year = -1;
+    }
+
+    let param = {params: {'year': year, 'searchString': currentSearchString}}
+    console.log(param);
+    return this.http.get(this.apiUrl + "search/",param )
       .toPromise()
       .then(response => response.json() as Album[])
       .catch(this.handleError);

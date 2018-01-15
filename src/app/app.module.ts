@@ -11,6 +11,8 @@ import { ReglistModule } from './reglist/reglist.module';
 import { YearlistModule } from './yearlist/yearlist.module';
 
 import { HttpModule }    from '@angular/http';
+import {UserroleModule} from "./userrole/userrole.module";
+import {GenreModule} from "./genre/genre.module";
 
 @NgModule({
   declarations: [
@@ -21,12 +23,20 @@ import { HttpModule }    from '@angular/http';
     HttpModule,
     AppRoutingModule,
     UserModule,
+    UserroleModule,
     ArtistModule,
     AlbumModule,
     ReglistModule,
-    YearlistModule
+    YearlistModule,
+    GenreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor() {
+    console.log("AppModule - constructor")
+  }
+
+}

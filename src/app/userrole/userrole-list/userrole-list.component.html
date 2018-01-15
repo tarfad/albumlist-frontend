@@ -5,13 +5,13 @@
         <header class="header">
           <div class="row">
             <div class="col-md-4">
-              <h1>Users</h1>
+              <h1>User roles</h1>
             </div>
             <div class="col-md-6">
 
             </div>
             <div class="col-md-2">
-              <button type="button" class="btn btn-primary" (click)="redirectNewUserPage()">New User</button>
+              <button type="button" class="btn btn-primary" (click)="redirectNewUserRolePage()">New UserRole</button>
             </div>
           </div>
 
@@ -23,21 +23,16 @@
         <table class="table table-hover table-condensed">
           <thead>
           <tr>
-            <th>User name</th>
-            <th>Full name</th>
-            <th>User role</th>
+            <th>Name</th>
             <th width="100px">Action</th>
-            <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{user.userName}}</td>
-            <td>{{user.fullName}}</td>
-            <td>{{user.userRole != null ? user.userRole.name : ''}}</td>
+          <tr *ngFor="let userRole of userRoles">
+            <td>{{userRole.name}}</td>
             <td>
-              <button type="button" class="btn btn-success btn-xs" (click)="editUserPage(user)">Edit</button>
-              <button type="button" class="btn btn-danger btn-xs" (click)="deleteUser(user)">Delete</button>
+              <button type="button" class="btn btn-success btn-xs" (click)="editUserRolePage(userRole)">Edit</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="deleteUserRole(userRole)">Delete</button>
             </td>
           </tr>
 

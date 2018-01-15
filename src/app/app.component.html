@@ -1,13 +1,18 @@
-<nav>
-  <a routerLink="/user" routerLinkActive="active">Users</a>
-
-  <a routerLink="/artist" routerLinkActive="active">Artist</a>
-
-  <a routerLink="/album" routerLinkActive="active">Album</a>
-
-  <a routerLink="/reglist" routerLinkActive="active">User results</a>
-
-  <a routerLink="/yearlist" routerLinkActive="active">Yearlist</a>
-</nav>
-
-<router-outlet></router-outlet>
+<div id="container">
+  <div id="header">
+    <nav class="container-fluid">
+      <ul class="nav nav-tabs">
+        <li role="presentation"><a routerLink="/userrole" routerLinkActive="active">Users Roles</a></li>
+        <li role="presentation"><a routerLink="/user" routerLinkActive="active">Users</a></li>
+        <li role="presentation"><a routerLink="/genre" routerLinkActive="active">Genre</a></li>
+        <li role="presentation"><a routerLink="/artist" routerLinkActive="active">Artist</a></li>
+        <li role="presentation"><a routerLink="/album" routerLinkActive="active">Album</a></li>
+        <li role="presentation"><a routerLink="/reglist" routerLinkActive="active">Vote</a></li>
+        <li role="presentation"><a routerLink="/yearlist" routerLinkActive="active">Albumlist</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div id="body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

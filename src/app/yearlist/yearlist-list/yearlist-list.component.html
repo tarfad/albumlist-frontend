@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Albumlist</h1>
+            </div>
+            <form novalidate [formGroup]="yearlistForm" (ngSubmit)="onSubmit()">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Year</label>
+                  <select class="form-control"
+                          formControlName="theYear"
+                          (ngModelChange)="doTriggerYear($event)"
+                          [(ngModel)]="theYear"
+                  >
+                    <option value="-1">Please select a year</option>
+
+                    <option *ngFor="let y of years"
+                            [value]="y">
+                      {{ y }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>User role</label>
+                  <select class="form-control"
+                          formControlName="theUserRole"
+                          (ngModelChange)="doTriggerUserRole($event)"
+                          [(ngModel)]="theUserRole"
+                  >
+                    <option value="-1">Please select a user role</option>
+
+                    <option *ngFor="let userRole of userRoles"
+                            [value]="userRole.id">
+                      {{ userRole.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+        <table class="table table-hover table-condensed">
+          <thead>
+          <tr>
+            <th width="100px">Place</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Users</th>
+            <th>Avg</th>
+            <th>Total</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let albumListPlace of albumListPlaces">
+            <td>{{albumListPlace.place}}</td>
+            <td>{{albumListPlace.album.artist.name}}</td>
+            <td>{{albumListPlace.album.name}}</td>
+            <td>{{albumListPlace.users.length}}</td>
+            <td>{{albumListPlace.avgPoint | number:0}}</td>
+            <td>{{albumListPlace.totalPoint}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>

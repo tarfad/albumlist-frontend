@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="roleName">
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!userRoleForm.valid" >Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectUserRolePage()">Cancel</button>
+          <pre>{{userRoleForm.value | json}}</pre>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

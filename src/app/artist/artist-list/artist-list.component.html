@@ -4,15 +4,22 @@
       <section>
         <header class="header">
           <div class="row">
+            <form novalidate [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <div class="col-md-4">
               <h1>Artists</h1>
             </div>
             <div class="col-md-6">
-
+              <div class="form-group">
+                <label>Search</label>
+                <input type="text"
+                       class="form-control"
+                       formControlName="artistSearch">
+              </div>
             </div>
             <div class="col-md-2">
               <button type="button" class="btn btn-primary" (click)="redirectNewArtistPage()">New Artist</button>
             </div>
+            </form>
           </div>
 
         </header>
@@ -20,23 +27,27 @@
 
       <section class="main">
 
-        <table class="table">
+        <table class="table table-hover table-condensed">
           <thead>
           <tr>
-            <!--<th>#</th>-->
             <th>Name</th>
-            <th>Spotify</th>
-            <th></th>
+            <th width="100px">Spotify</th>
+            <th width="100px">Action</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let artist of artists">
-            <!--<th scope="row">{{artist.id}}</th>-->
             <td>{{artist.name}}</td>
-            <td>{{artist.spotifyLink}}</td>
             <td>
-              <button type="button" class="btn btn-success" (click)="editArtistPage(artist)">Edit</button>
-              <button type="button" class="btn btn-danger" (click)="deleteArtist(artist)">Delete</button>
+              <div *ngIf="artist.spotifyLink != '' && artist.spotifyLink != null">
+                <a target="_blank" href="{{artist.spotifyLink}}">
+                  <i class="fa fa-spotify" aria-hidden="true" ></i>
+                </a>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-success btn-xs" (click)="editArtistPage(artist)">Edit</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="deleteArtist(artist)">Delete</button>
             </td>
           </tr>
 

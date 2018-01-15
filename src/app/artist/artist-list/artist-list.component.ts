@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Artist } from "../../model/Artist";
 import { ArtistService } from "../../services/artist.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-artist-list',
@@ -14,6 +15,9 @@ import { ArtistService } from "../../services/artist.service";
 export class ArtistListComponent implements OnInit {
 
   private artists: Artist[];
+  private currentSearchString: string;
+
+  searchForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -22,7 +26,14 @@ export class ArtistListComponent implements OnInit {
 
   ngOnInit() { //when component loading get all artists and set the artists[]
     console.log('ngOnInit - Artist');
+
+    this.currentSearchString  = '';
+
     this.getAllArtists();
+
+    this.searchForm = new FormGroup({
+      artistSearch: new FormControl('')
+    });
   }
 
   getAllArtists(): void {
@@ -48,6 +59,18 @@ export class ArtistListComponent implements OnInit {
     let promise = this.artistService.deleteArtist(artist.id);
     this.reloadPage();
     console.log('done');
+  }
+
+  onSubmit() {
+    this.currentSearchString = this.searchForm.controls['artistSearch'].value;
+    this.searchArtists();
+  }
+
+  searchArtists(): void {
+    console.log('searchArtists');
+    this.artistService.searchAtists(this.currentSearchString)
+      .then(artists => this. artists = artists );
+
   }
 
   reloadPage() {
