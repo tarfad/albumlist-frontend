@@ -1,27 +1,27 @@
 <div class="container">
   <div class="row">
-    <div class="col vertical-align: middle">
+    <div>
       <section>
         <header class="header">
           <div class="row">
             <form novalidate [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-              <div class="col-md-4 vertical-align: middle">
-                <h1>Album</h1>
+              <div class="col-md-4">
+                <h1><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Album</h1>
               </div>
 
 
-              <div class="col-md-4 vertical-align: middle">
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label>Search</label>
+                  <label><i class="fa fa-search" aria-hidden="true"></i> Search</label>
                   <input type="text"
                          class="form-control"
                          formControlName="artistSearch">
                 </div>
               </div>
 
-              <div class="col-md-2 vertical-align: middle">
+              <div class="col-md-2">
                 <div class="form-group" aria-hidden="true">
-                  <label>Year</label>
+                  <label><i class="fa fa-calendar" aria-hidden="true"></i> Year</label>
                   <select class="form-control"
                           formControlName="theYear"
                           (ngModelChange)="doTriggerYear($event)"
@@ -37,10 +37,28 @@
                 </div>
               </div>
 
+              <div class="col-md-2">
+                <div class="form-group" aria-hidden="true">
+                  <label><i class="fa fa-music" aria-hidden="true"></i> Genre</label>
+                  <select class="form-control"
+                          formControlName="theGenre"
+                          (ngModelChange)="doTriggerGenre($event)"
+                          [(ngModel)]="theGenre"
+                  >
+                    <option value="-1">Please select a genre</option>
+
+                    <option *ngFor="let genre of genres"
+                            [value]="genre.id">
+                      {{ genre.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
 
 
-              <div class="col-md-2 vertical-align: middle">
-                <button type="button" class="btn btn-primary" (click)="redirectNewAlbumPage()">New Album</button>
+
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary" (click)="redirectNewAlbumPage()">New Album <i class="fa fa-dot-circle-o" aria-hidden="true"></i></button>
               </div>
             </form>
           </div>
@@ -53,10 +71,11 @@
         <table class="table table-hover table-condensed">
           <thead>
           <tr>
-            <th>Artist</th>
+            <th width="200px"><i class="fa fa-user-circle-o" aria-hidden="true"> Artist</i></th>
             <th>Name</th>
-            <th>Year</th>
-            <th width="100px">Spotify</th>
+            <th width="75px"><i class="fa fa-calendar" aria-hidden="true"></i> Year</th>
+            <th width="125px"><i class="fa fa-music" aria-hidden="true"></i> Genre</th>
+            <th width="75px"><i class="fa fa-spotify" aria-hidden="true" ></i> Spotify</th>
             <th width="100px">Action</th>
           </tr>
           </thead>
@@ -65,6 +84,11 @@
             <td>{{album.artist.name}}</td>
             <td>{{album.name}}</td>
             <td>{{album.year}}</td>
+            <td>
+              <div *ngIf="album.genre != null">
+                {{album.genre.name}}
+              </div>
+            </td>
             <td>
               <div *ngIf="album.spotifyLink != '' && album.spotifyLink != null">
                 <a target="_blank" href="{{album.spotifyLink}}">

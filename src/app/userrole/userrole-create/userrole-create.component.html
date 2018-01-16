@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col">
       <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-12">
+              <h1><i class="fa fa-users" aria-hidden="true"></i> Group</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+      <section>
         <form novalidate [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
           <fieldset>
             <div class="form-group">
@@ -14,7 +23,9 @@
 
           <button type="submit" class="btn btn-primary"  [disabled]="!userRoleForm.valid" >Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectUserRolePage()">Cancel</button>
+          <!--
           <pre>{{userRoleForm.value | json}}</pre>
+          -->
         </form>
       </section>
     </div>

@@ -9,13 +9,15 @@ import {Artist} from "../../model/Artist";
 import {ActivatedRoute, Router} from "@angular/router";
 
 import {ConfigService} from "../../config/config.service";
+import {Genre} from "../../model/Genre";
+import {GenreService} from "../../services/genre.service";
 
 
 @Component({
   selector: 'app-album-create',
   templateUrl: './album-create.component.html',
   styleUrls: ['./album-create.component.css'],
-  providers: [ConfigService, AlbumService, ArtistService]
+  providers: [ConfigService, AlbumService, ArtistService, GenreService]
 })
 export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit {
 
@@ -27,6 +29,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
   artistId: number;
   artists: Artist[];
 
+  genres: Genre[];
+
   albumForm: FormGroup;
   private sub: any;
 
@@ -34,7 +38,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
               private router: Router,
               private configService: ConfigService,
               private albumService: AlbumService,
-              private artistService: ArtistService) { }
+              private artistService: ArtistService,
+              private genreService: GenreService) { }
 
   ngOnInit() {
     console.info('album-create-ngOnInit');
@@ -49,12 +54,16 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
       theYear: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       spotifyLink: new FormControl(''),
-      theArtist: new FormControl('')
+      theArtist: new FormControl('', Validators.required),
+      theGenre: new FormControl('')
     });
 
     this.artistService.getArtists()
       .then(artists => this.artists = artists );
 
+
+    this.genreService.getGenres()
+      .then(genres => this.genres = genres );
 
     if (this.id) { //edit form
       console.log('EDIT');
@@ -64,16 +73,27 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
         this.id = album.id;
         this.artistId = album.artist.id;
 
+        let genreId: number = -1;
+        if(album.genre != null) {
+          genreId =  album.genre.id;
+        }
+
         this.albumForm.patchValue({
           name: album.name,
           spotifyLink: album.spotifyLink,
           theArtist: album.artist.id,
-          theYear: album.year
+          theYear: album.year,
+          theGenre: genreId
         });
       }
       );
       this.albumForm.controls['theArtist'].setValue(this.artistId);
       this.albumForm.controls['theArtist'].disable();
+    }
+    else  {
+      this.albumForm.patchValue({
+        theGenre: -1
+      });
     }
   }
 
@@ -93,27 +113,29 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
 
   onSubmit() {
     if (this.albumForm.valid) {
+      let artistBean: Artist =
+        new Artist(this.albumForm.controls['theArtist'].value,
+          '',
+          '');
+
+      let genre: Genre = new Genre(this.albumForm.controls['theGenre'].value,
+        '', null);
+
       if (this.id) {
-        let artistBean: Artist =
-          new Artist(this.albumForm.controls['theArtist'].value,
-            '',
-            '');
         let user: Album = new Album(this.id,
           this.albumForm.controls['name'].value,
           this.albumForm.controls['spotifyLink'].value,
           null,
-          this.albumForm.controls['theYear'].value);
+          this.albumForm.controls['theYear'].value,
+          genre);
         let albumPromise = this.albumService.updateAlbum(user);
       } else {
-        let artistBean: Artist =
-          new Artist(this.albumForm.controls['theArtist'].value,
-            '',
-            '');
         let albumBean: Album = new Album(null,
           this.albumForm.controls['name'].value,
           this.albumForm.controls['spotifyLink'].value,
           artistBean,
-          this.albumForm.controls['theYear'].value
+          this.albumForm.controls['theYear'].value,
+          genre
           );
         let albumPromise2 = this.albumService.saveAlbum(albumBean);
       }

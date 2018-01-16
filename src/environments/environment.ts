@@ -6,3 +6,8 @@
 export const environment = {
   production: false
 };
+
+export const validYears = {
+  yearStart: 2010,
+  yearEnd: 2018
+};

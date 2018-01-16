@@ -38,13 +38,16 @@ export class AlbumService {
       .catch(this.handleError);
   }
 
-  searchAlbums(year: number, currentSearchString: string):  Promise<Album[]> {
+  searchAlbums(year: number, genreId: number, currentSearchString: string):  Promise<Album[]> {
     console.log('searchAlbums: ' + year);
     if(year == null) {
       year = -1;
     }
+    if(genreId == null) {
+      genreId = -1;
+    }
 
-    let param = {params: {'year': year, 'searchString': currentSearchString}}
+    let param = {params: {'year': year, 'genreId': genreId,'searchString': currentSearchString}}
     console.log(param);
     return this.http.get(this.apiUrl + "search/",param )
       .toPromise()

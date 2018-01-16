@@ -2,11 +2,20 @@
   <div class="row">
     <div class="col">
       <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-12">
+              <h1><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Album</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+      <section>
         <form novalidate [formGroup]="albumForm" (ngSubmit)="onSubmit()">
 
           <fieldset>
             <div class="form-group">
-              <label>Artist</label>
+              <label><i class="fa fa-user-circle-o" aria-hidden="true"></i> Artist</label>
               <select class="form-control"
                       formControlName="theArtist">
                 <option value="-1">Please select an artist</option>
@@ -25,7 +34,7 @@
             </div>
 
             <div class="form-group">
-              <label>Year</label>
+              <label><i class="fa fa-calendar" aria-hidden="true"></i> Year</label>
               <select class="form-control"
                       formControlName="theYear"
                       [(ngModel)]="theYear"
@@ -40,7 +49,19 @@
             </div>
 
             <div class="form-group">
-              <label>Spotify</label>
+              <label><i class="fa fa-music" aria-hidden="true"></i> Genre</label>
+              <select class="form-control"
+                      formControlName="theGenre">
+                <option value="-1">Please select an genre</option>
+                <option *ngFor="let genre of genres"
+                        [value]="genre.id">
+                  {{ genre.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-spotify" aria-hidden="true" ></i> Spotify</label>
               <input type="text"
                      class="form-control"
                      formControlName="spotifyLink">
@@ -49,7 +70,9 @@
 
           <button type="submit" class="btn btn-primary"  [disabled]="!albumForm.valid" >Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectAlbumPage()">Cancel</button>
+          <!--
           <pre>{{albumForm.value | json}}</pre>
+          -->
         </form>
 
       </section>

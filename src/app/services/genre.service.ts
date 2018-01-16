@@ -1,45 +1,45 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
+import {Genre} from "../model/Genre";
 
-import {UserRole} from "../model/UserRole";
 @Injectable()
-export class GenreRoleService {
+export class GenreService {
 
   private apiUrl = 'http://localhost:8080/api/genres/';
 
   constructor(private http: Http) { }
 
-  getUserRoles():  Promise<UserRole[]> {
+  getGenres():  Promise<Genre[]> {
     return this.http.get(this.apiUrl)
       .toPromise()
-      .then(response => response.json() as UserRole[])
+      .then(response => response.json() as Genre[])
       .catch(this.handleError);
   }
 
-  findById(id: number): Promise<UserRole> {
+  findById(id: number): Promise<Genre> {
     return this.http.get(this.apiUrl + id)
       .toPromise()
-      .then(response => response.json() as UserRole)
+      .then(response => response.json() as Genre)
       .catch(this.handleError);
   }
 
-  saveUserRole(userRoleData: UserRole): Promise<UserRole> {
-    return this.http.post(this.apiUrl, userRoleData)
-      .toPromise().then(response => response.json() as UserRole)
+  saveGenre(genreData: Genre): Promise<Genre> {
+    return this.http.post(this.apiUrl, genreData)
+      .toPromise().then(response => response.json() as Genre)
       .catch(this.handleError);
   }
 
-  deleteUserRole(id: number): Promise<any> {
+  deleteGenre(id: number): Promise<any> {
     return this.http.delete(this.apiUrl + id)
       .toPromise()
       .catch(this.handleError);
   }
 
-  updateUserRole(userRoleData: UserRole): Promise<UserRole> {
-    console.log('updateUserRole');
-    return this.http.put(this.apiUrl + userRoleData.id, userRoleData)
+  updateGenre(genreData: Genre): Promise<Genre> {
+    console.log('updateGenre');
+    return this.http.put(this.apiUrl + genreData.id, genreData)
       .toPromise()
-      .then(response => response.json() as UserRole)
+      .then(response => response.json() as Genre)
       .catch(this.handleError);
   }
 

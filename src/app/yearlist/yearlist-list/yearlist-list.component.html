@@ -5,12 +5,12 @@
         <header class="header">
           <div class="row">
             <div class="col-md-4">
-              <h1>Albumlist</h1>
+              <h1><i class="fa fa-list" aria-hidden="true"></i> Albumlist</h1>
             </div>
             <form novalidate [formGroup]="yearlistForm" (ngSubmit)="onSubmit()">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>Year</label>
+                  <label><i class="fa fa-calendar" aria-hidden="true"></i>  Year</label>
                   <select class="form-control"
                           formControlName="theYear"
                           (ngModelChange)="doTriggerYear($event)"
@@ -27,13 +27,13 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>User role</label>
+                  <label><i class="fa fa-users" aria-hidden="true"></i> Group</label>
                   <select class="form-control"
                           formControlName="theUserRole"
                           (ngModelChange)="doTriggerUserRole($event)"
                           [(ngModel)]="theUserRole"
                   >
-                    <option value="-1">Please select a user role</option>
+                    <option value="-1">Please select a group</option>
 
                     <option *ngFor="let userRole of userRoles"
                             [value]="userRole.id">
@@ -54,11 +54,12 @@
           <thead>
           <tr>
             <th width="100px">Place</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Users</th>
-            <th>Avg</th>
-            <th>Total</th>
+            <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Artist</th>
+            <th><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Album</th>
+            <th width="125px"><i class="fa fa-music" aria-hidden="true"></i> Genre</th>
+            <th width="50px">Users</th>
+            <th width="50px">Avg</th>
+            <th width="50px">Total</th>
           </tr>
           </thead>
           <tbody>
@@ -66,6 +67,11 @@
             <td>{{albumListPlace.place}}</td>
             <td>{{albumListPlace.album.artist.name}}</td>
             <td>{{albumListPlace.album.name}}</td>
+            <td>
+              <div *ngIf="albumListPlace.album != null && albumListPlace.album.genre != null">
+                {{albumListPlace.album.genre.name}}
+              </div>
+            </td>
             <td>{{albumListPlace.users.length}}</td>
             <td>{{albumListPlace.avgPoint | number:0}}</td>
             <td>{{albumListPlace.totalPoint}}</td>

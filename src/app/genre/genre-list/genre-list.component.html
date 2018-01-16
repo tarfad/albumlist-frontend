@@ -1,3 +1,53 @@
-<p>
-  genre-list works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-12">
+              <h1><i class="fa fa-music" aria-hidden="true"></i> Genres</h1>
+            </div>
+            <!--
+            <div class="col-md-6">
+            </div>
+            -->
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="redirectNewGenrePage()">New Genre <i class="fa fa-music" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+
+        <table class="table table-hover table-condensed">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>
+                <i class="fa fa-music" aria-hidden="true"></i> Parent
+            </th>
+            <th width="100px">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let genre of genres">
+            <td>{{genre.name}}</td>
+            <td>
+              <div *ngIf="genre.parent != null">
+                {{genre.parent.name}}
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-success btn-xs" (click)="editGenrePage(genre)">Edit</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="deleteGenre(genre)">Delete</button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>

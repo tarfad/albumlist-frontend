@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col">
       <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-12">
+              <h1><i class="fa fa-user" aria-hidden="true"></i> User</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+      <section>
         <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
           <fieldset>
             <div class="form-group">
@@ -27,10 +36,10 @@
 
 
             <div class="form-group">
-              <label>Role</label>
+              <label><i class="fa fa-users" aria-hidden="true"></i> Group</label>
               <select class="form-control"
                       formControlName="theUserRole">
-                <option value="-1">Please select an role</option>
+                <option value="-1">Please select an group</option>
                 <option *ngFor="let userRole of userRoles"
                         [value]="userRole.id">
                   {{ userRole.name }}
@@ -41,7 +50,9 @@
 
           <button type="submit" class="btn btn-primary"  [disabled]="!userForm.valid" >Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
+          <!--
           <pre>{{userForm.value | json}}</pre>
+          -->
         </form>
       </section>
     </div>

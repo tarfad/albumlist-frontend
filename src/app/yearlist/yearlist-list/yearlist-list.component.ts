@@ -62,7 +62,20 @@ export class YearlistListComponent implements OnInit {
     }
 
     this.albumListService.getAlbumList(this.currentYear, this.currentRole)
-      .then(albumListPlaces => this.albumListPlaces = albumListPlaces );
+      .then(albumListPlaces => {
+        this.albumListPlaces = albumListPlaces;
+        let alp: AlbumListPlace;
+        for (alp of albumListPlaces) {
+          console.log(alp.album.name);
+          if(alp.album.genre == null) {
+            console.info('No genre');
+          }
+          else {
+            console.info('Genre: ' + alp.album.genre.name);
+          }
+        }
+
+      } );
   }
 
   getAllUserRoles(): void {

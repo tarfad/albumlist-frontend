@@ -1,3 +1,48 @@
-<p>
-  genre-create works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-12">
+              <h1><i class="fa fa-music" aria-hidden="true"></i> Genre</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+      <section>
+        <form novalidate [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name">
+            </div>
+
+            <div class="form-group">
+              <label>Role</label>
+              <select class="form-control"
+                      formControlName="theParent">
+                <option value="-1">Please select an parent</option>
+                <option *ngFor="let genre of genres"
+                        [value]="genre.id">
+                  {{ genre.name }}
+                </option>
+              </select>
+            </div>
+
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!genreForm.valid" >Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectGenrePage()">Cancel</button>
+          <!--
+          <pre>{{genreForm.value | json}}</pre>
+          -->
+
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
