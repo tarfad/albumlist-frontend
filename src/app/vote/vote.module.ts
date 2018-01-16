@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ReglistRoutingModule } from './reglist-routing.module';
-import { ReglistListComponent } from './reglist-list/reglist-list.component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {VoteRoutingModule} from "./vote-routing.module";
+import {VoteListComponent} from "./vote.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    ReglistRoutingModule,
+    VoteRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ReglistListComponent]
+  declarations: [VoteListComponent]
 })
-export class ReglistModule { }
+export class VoteModule { }

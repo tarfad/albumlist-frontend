@@ -8,14 +8,14 @@ import {ConfigService} from "../../config/config.service";
 import {UserGroupService} from "../../services/usergroup.service";
 import {UserGroup} from "../../model/UserGroup";
 import {AlbumListPlace} from "../../beans/AlbumListPlace";
-import {AlbumListService} from "../../services/albumlist.service";
+import {YearListService} from "../../services/yearlist.service";
 
 
 @Component({
   selector: 'app-yearlist-list',
   templateUrl: './yearlist-list.component.html',
   styleUrls: ['./yearlist-list.component.css'],
-  providers: [ConfigService, UserGroupService, AlbumListService]
+  providers: [ConfigService, UserGroupService, YearListService]
 })
 export class YearlistListComponent implements OnInit {
 
@@ -36,12 +36,10 @@ export class YearlistListComponent implements OnInit {
               private location: Location,
               private configService: ConfigService,
               private userGroupService: UserGroupService,
-              private albumListService: AlbumListService) {}
+              private yearListService: YearListService) {}
 
 
   ngOnInit() {
-    console.log('ngOnInit - User');
-
     this.currentYear = -1;
     this.currentGroup = -1;
 
@@ -64,7 +62,7 @@ export class YearlistListComponent implements OnInit {
       this.currentGroup = -1;
     }
 
-    this.albumListService.getAlbumList(this.currentYear, this.currentGroup)
+    this.yearListService.getAlbumList(this.currentYear, this.currentGroup)
       .then(albumListPlaces => {
         this.albumListPlaces = albumListPlaces;
         let alp: AlbumListPlace;

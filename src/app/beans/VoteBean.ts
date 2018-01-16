@@ -1,5 +1,5 @@
 
-export class AlbumPlaceBean {
+export class VoteBean {
   userId: number;
   year: number;
   place: number;

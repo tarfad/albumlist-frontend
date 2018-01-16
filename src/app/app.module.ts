@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { ArtistModule } from './artist/artist.module';
 import { AlbumModule } from './album/album.module';
-import { ReglistModule } from './reglist/reglist.module';
 import { YearlistModule } from './yearlist/yearlist.module';
 
 import { HttpModule }    from '@angular/http';
@@ -16,6 +15,7 @@ import {GenreModule} from "./genre/genre.module";
 import { CoreModule } from './core/core.module';
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserGroupModule} from "./usergroup/usergroup.module";
+import {VoteModule} from "./vote/vote.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import {UserGroupModule} from "./usergroup/usergroup.module";
     UserGroupModule,
     ArtistModule,
     AlbumModule,
-    ReglistModule,
+    VoteModule,
     YearlistModule,
     GenreModule,
     WelcomeModule

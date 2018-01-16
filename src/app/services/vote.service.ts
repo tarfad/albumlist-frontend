@@ -2,14 +2,15 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {AlbumListPlace} from "../beans/AlbumListPlace";
+import {AlbumPlace} from "../model/AlbumPlace";
+import {VoteBean} from "../beans/AlbumPlaceBean";
 import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
-export class AlbumListService {
+export class VoteService {
 
   private mainApiUrl: string;
-  private specifiedApiUrl = 'albumlist/';
+  private specifiedApiUrl = 'vote/';
 
   constructor(private http: Http,
               private envSpecificSvc: EnvironmentSpecificService) {
@@ -20,10 +21,16 @@ export class AlbumListService {
     return this.mainApiUrl + this.specifiedApiUrl;
   }
 
-  getAlbumList(year: number, userGroup: number):  Promise<AlbumListPlace[]> {
-    return this.http.get(this.getApiUrl() + year + '/' + userGroup + '/')
+  getAlbumsByYearAndUser(year: number, userId: number):  Promise<AlbumPlace[]> {
+    return this.http.get(this.getApiUrl() + "year/", {params: {'year': year, 'id': userId}})
       .toPromise()
-      .then(response => response.json() as AlbumListPlace[])
+      .then(response => response.json() as AlbumPlace[])
+      .catch(this.handleError);
+  }
+
+  updateAlbumList(albumsDataData: VoteBean): Promise<any> {
+    return this.http.post(this.getApiUrl() + 'list/update/', albumsDataData)
+      .toPromise()
       .catch(this.handleError);
   }
 

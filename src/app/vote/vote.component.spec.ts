@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {VoteListComponent} from "./vote.component";
 
-import { ReglistListComponent } from './reglist-list.component';
-
-describe('ReglistListComponent', () => {
-  let component: ReglistListComponent;
-  let fixture: ComponentFixture<ReglistListComponent>;
+describe('VoteListComponent', () => {
+  let component: VoteListComponent;
+  let fixture: ComponentFixture<VoteListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReglistListComponent ]
+      declarations: [ VoteListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReglistListComponent);
+    fixture = TestBed.createComponent(VoteListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

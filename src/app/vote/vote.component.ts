@@ -3,21 +3,21 @@ import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
-import {User} from "../../model/User";
-import {Album} from "../../model/Album";
-import {UserService} from "../../services/user.service";
-import {AlbumService} from "../../services/album.service";
-import {AlbumPlaceService} from "../../services/albumplace.service";
-import {ConfigService} from "../../config/config.service";
-import {AlbumPlaceBean} from "../../beans/AlbumPlaceBean";
+import {User} from "../model/User";
+import {Album} from "../model/Album";
+import {UserService} from "../services/user.service";
+import {AlbumService} from "../services/album.service";
+import {VoteService} from "../services/vote.service";
+import {ConfigService} from "../config/config.service";
+import {VoteBean} from "../beans/VoteBean";
 
 @Component({
-  selector: 'app-reglist-list',
-  templateUrl: './reglist-list.component.html',
-  styleUrls: ['./reglist-list.component.css'],
-  providers: [ConfigService, UserService, AlbumService, AlbumPlaceService]
+  selector: 'app-vote',
+  templateUrl: './vote.component.html',
+  styleUrls: ['./vote.component.css'],
+  providers: [ConfigService, UserService, AlbumService, VoteService]
 })
-export class ReglistListComponent implements OnInit, OnChanges {
+export class VoteListComponent implements OnInit, OnChanges {
 
   years: number[];
   users: User[];
@@ -57,10 +57,8 @@ export class ReglistListComponent implements OnInit, OnChanges {
               private configService: ConfigService,
               private userService: UserService,
               private albumService: AlbumService,
-              private albumPlaceService: AlbumPlaceService
-  ) {
-    console.log('ReglistListComponent - constructor')
-  }
+              private voteService: VoteService
+  ) { }
 
   ngOnInit() {
 
@@ -146,7 +144,7 @@ export class ReglistListComponent implements OnInit, OnChanges {
         this.albumForm.get('theAlbum' + place).patchValue(-1);
       }
 
-      this.albumPlaceService.getAlbumsByYearAndUser(this.currentYear, this.currentUser).then(places => {
+      this.voteService.getAlbumsByYearAndUser(this.currentYear, this.currentUser).then(places => {
           for (let place of places) {
             this.albumForm.get('theAlbum' + place.place).patchValue(place.album.id);
           }
@@ -160,19 +158,19 @@ export class ReglistListComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    console.log('onSubmit');
-    let regBean: AlbumPlaceBean = new AlbumPlaceBean();
-    regBean.userId = this.currentUser;
-    regBean.year = this.currentYear;
+    //console.log('onSubmit');
+    let voteBean: VoteBean = new VoteBean();
+    voteBean.userId = this.currentUser;
+    voteBean.year = this.currentYear;
 
     for(let place=1; place<=20;place++) {
-      regBean.albums[place -1] = this.albumForm.get('theAlbum'+place).value;
+      voteBean.albums[place -1] = this.albumForm.get('theAlbum'+place).value;
       console.log(place + ' -> ' + this.albumForm.get('theAlbum'+place).value);
     }
 
-    console.log(JSON.stringify(regBean));
+    //console.log(JSON.stringify(voteBean));
 
-    this.albumPlaceService.updateAlbumList(regBean);
+    this.voteService.updateAlbumList(voteBean);
 
     this.albumForm.patchValue({
       theUser: -1
@@ -182,7 +180,7 @@ export class ReglistListComponent implements OnInit, OnChanges {
   }
 
   redirectVotePage() {
-    this.router.navigate(['/reglist']);
+    this.router.navigate(['/vote']);
   }
 
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ReglistListComponent} from "./reglist-list/reglist-list.component";
+import {VoteListComponent} from "./vote.component";
 
 const routes: Routes = [
-  {path: 'reglist', component: ReglistListComponent},
+  {path: 'vote', component: VoteListComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ReglistRoutingModule { }
+export class VoteRoutingModule { }
