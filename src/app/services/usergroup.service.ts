@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 
-import {UserRole} from "../model/UserRole";
+import {UserGroup} from "../model/UserGroup";
 import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 @Injectable()
-export class UserRoleService {
+export class UserGroupService {
 
   private mainApiUrl: string;
-  private specifiedApiUrl = 'userroles/';
+  private specifiedApiUrl = 'usergroups/';
 
   constructor(private http: Http,
               private envSpecificSvc: EnvironmentSpecificService) {
@@ -18,36 +18,37 @@ export class UserRoleService {
     return this.mainApiUrl + this.specifiedApiUrl;
   }
 
-  getUserRoles():  Promise<UserRole[]> {
+  getUserGroups():  Promise<UserGroup[]> {
+    console.log(this.getApiUrl());
     return this.http.get(this.getApiUrl())
       .toPromise()
-      .then(response => response.json() as UserRole[])
+      .then(response => response.json() as UserGroup[])
       .catch(this.handleError);
   }
 
-  findById(id: number): Promise<UserRole> {
+  findById(id: number): Promise<UserGroup> {
     return this.http.get(this.getApiUrl() + id)
       .toPromise()
-      .then(response => response.json() as UserRole)
+      .then(response => response.json() as UserGroup)
       .catch(this.handleError);
   }
 
-  saveUserRole(userRoleData: UserRole): Promise<UserRole> {
-    return this.http.post(this.getApiUrl(), userRoleData)
-      .toPromise().then(response => response.json() as UserRole)
+  saveUserGroup(userGroupData: UserGroup): Promise<UserGroup> {
+    return this.http.post(this.getApiUrl(), userGroupData)
+      .toPromise().then(response => response.json() as UserGroup)
       .catch(this.handleError);
   }
 
-  deleteUserRole(id: number): Promise<any> {
+  deleteUserGroup(id: number): Promise<any> {
     return this.http.delete(this.getApiUrl() + id)
       .toPromise()
       .catch(this.handleError);
   }
 
-  updateUserRole(userRoleData: UserRole): Promise<UserRole> {
-    return this.http.put(this.getApiUrl() + userRoleData.id, userRoleData)
+  updateUserGroup(userGroupData: UserGroup): Promise<UserGroup> {
+    return this.http.put(this.getApiUrl() + userGroupData.id, userGroupData)
       .toPromise()
-      .then(response => response.json() as UserRole)
+      .then(response => response.json() as UserGroup)
       .catch(this.handleError);
   }
 

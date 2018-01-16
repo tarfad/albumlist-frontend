@@ -1,18 +1,18 @@
-import {UserRole} from "./UserRole";
+import {UserGroup} from "./UserGroup";
 
 export class User {
   id: number;
   userName: string;
   password: string;
   fullName: string;
-  userRole: UserRole;
+  userGroup: UserGroup;
 
 
-  constructor(id: number, userName: string, password: string, fullName: string, userRole: UserRole){
+  constructor(id: number, userName: string, password: string, fullName: string, userGroup: UserGroup){
     this.id = id;
     this.userName = userName;
     this.password = password;
     this.fullName = fullName;
-    this.userRole = userRole;
+    this.userGroup = userGroup;
   }
 }

@@ -13,7 +13,7 @@
             </div>
             -->
             <div class="col-md-2">
-              <button type="button" class="btn btn-primary" (click)="redirectNewUserRolePage()">New Group <i class="fa fa-users" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-primary" (click)="redirectNewUserGroupPage()">New Group <i class="fa fa-users" aria-hidden="true"></i></button>
             </div>
           </div>
 
@@ -30,11 +30,11 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let userRole of userRoles">
-            <td>{{userRole.name}}</td>
+          <tr *ngFor="let userGroup of userGroups">
+            <td>{{userGroup.name}}</td>
             <td>
-              <button type="button" class="btn btn-success btn-xs" (click)="editUserRolePage(userRole)">Edit</button>
-              <button type="button" class="btn btn-danger btn-xs" (click)="deleteUserRole(userRole)">Delete</button>
+              <button type="button" class="btn btn-success btn-xs" (click)="editUserGroupPage(userGroup)">Edit</button>
+              <button type="button" class="btn btn-danger btn-xs" (click)="deleteUserGroup(userGroup)">Delete</button>
             </td>
           </tr>
 

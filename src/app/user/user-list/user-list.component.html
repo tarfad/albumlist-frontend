@@ -36,7 +36,7 @@
           <tr *ngFor="let user of users">
             <td>{{user.userName}}</td>
             <td>{{user.fullName}}</td>
-            <td>{{user.userRole != null ? user.userRole.name : ''}}</td>
+            <td>{{user.userGroup != null ? user.userGroup.name : ''}}</td>
             <td>
               <button type="button" class="btn btn-success btn-xs" (click)="editUserPage(user)">Edit</button>
               <button type="button" class="btn btn-danger btn-xs" (click)="deleteUser(user)">Delete</button>

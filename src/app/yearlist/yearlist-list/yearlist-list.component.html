@@ -29,15 +29,15 @@
                 <div class="form-group">
                   <label><i class="fa fa-users" aria-hidden="true"></i> Group</label>
                   <select class="form-control"
-                          formControlName="theUserRole"
-                          (ngModelChange)="doTriggerUserRole($event)"
-                          [(ngModel)]="theUserRoleX"
+                          formControlName="theUserGroup"
+                          (ngModelChange)="doTriggerUserGroup($event)"
+                          [(ngModel)]="theUserGroupX"
                   >
                     <option value="-1">Please select a group</option>
 
-                    <option *ngFor="let userRole of userRoles"
-                            [value]="userRole.id">
-                      {{ userRole.name }}
+                    <option *ngFor="let userGroup of userGroups"
+                            [value]="userGroup.id">
+                      {{ userGroup.name }}
                     </option>
                   </select>
                 </div>

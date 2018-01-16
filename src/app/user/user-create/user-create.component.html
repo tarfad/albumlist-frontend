@@ -38,11 +38,11 @@
             <div class="form-group">
               <label><i class="fa fa-users" aria-hidden="true"></i> Group</label>
               <select class="form-control"
-                      formControlName="theUserRole">
+                      formControlName="theUserGroup">
                 <option value="-1">Please select an group</option>
-                <option *ngFor="let userRole of userRoles"
-                        [value]="userRole.id">
-                  {{ userRole.name }}
+                <option *ngFor="let userGroup of userGroups"
+                        [value]="userGroup.id">
+                  {{ userGroup.name }}
                 </option>
               </select>
             </div>

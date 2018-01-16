@@ -11,11 +11,11 @@ import { ReglistModule } from './reglist/reglist.module';
 import { YearlistModule } from './yearlist/yearlist.module';
 
 import { HttpModule }    from '@angular/http';
-import {UserroleModule} from "./userrole/userrole.module";
 import {GenreModule} from "./genre/genre.module";
 
 import { CoreModule } from './core/core.module';
 import {WelcomeModule} from "./welcome/welcome.module";
+import {UserGroupModule} from "./usergroup/usergroup.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import {WelcomeModule} from "./welcome/welcome.module";
     AppRoutingModule,
     CoreModule,
     UserModule,
-    UserroleModule,
+    UserGroupModule,
     ArtistModule,
     AlbumModule,
     ReglistModule,

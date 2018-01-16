@@ -2,5 +2,5 @@
   "yearStart": 1977,
   "yearEnd": 1978,
 
-  "mainApiUrl": "http://localhost:8080/api/"
+  "mainApiUrl": "http://localhost:8090/api/"
 }

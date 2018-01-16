@@ -5,8 +5,8 @@ import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConfigService} from "../../config/config.service";
-import {UserRoleService} from "../../services/userrole.service";
-import {UserRole} from "../../model/UserRole";
+import {UserGroupService} from "../../services/usergroup.service";
+import {UserGroup} from "../../model/UserGroup";
 import {AlbumListPlace} from "../../beans/AlbumListPlace";
 import {AlbumListService} from "../../services/albumlist.service";
 
@@ -15,27 +15,27 @@ import {AlbumListService} from "../../services/albumlist.service";
   selector: 'app-yearlist-list',
   templateUrl: './yearlist-list.component.html',
   styleUrls: ['./yearlist-list.component.css'],
-  providers: [ConfigService, UserRoleService, AlbumListService]
+  providers: [ConfigService, UserGroupService, AlbumListService]
 })
 export class YearlistListComponent implements OnInit {
 
   years: number[];
-  userRoles: UserRole[];
+  userGroups: UserGroup[];
   users: User[];
   albumListPlaces: AlbumListPlace[];
 
   currentYear: number;
-  currentRole: number;
+  currentGroup: number;
 
   yearlistForm: FormGroup;
 
   theYearX: any;
-  theUserRoleX: any;
+  theUserGroupX: any;
 
   constructor(private router: Router,
               private location: Location,
               private configService: ConfigService,
-              private userRoleService: UserRoleService,
+              private userGroupService: UserGroupService,
               private albumListService: AlbumListService) {}
 
 
@@ -43,14 +43,14 @@ export class YearlistListComponent implements OnInit {
     console.log('ngOnInit - User');
 
     this.currentYear = -1;
-    this.currentRole = -1;
+    this.currentGroup = -1;
 
     this.years = this.configService.getYears();
-    this.getAllUserRoles();
+    this.getAllUserGroups();
 
     this.yearlistForm = new FormGroup({
       theYear: new FormControl('', Validators.required),
-      theUserRole: new FormControl('', Validators.required)
+      theUserGroup: new FormControl('', Validators.required)
     });
   }
 
@@ -60,11 +60,11 @@ export class YearlistListComponent implements OnInit {
       return;
     }
 
-    if(this.currentRole == null) {
-      this.currentRole = -1;
+    if(this.currentGroup == null) {
+      this.currentGroup = -1;
     }
 
-    this.albumListService.getAlbumList(this.currentYear, this.currentRole)
+    this.albumListService.getAlbumList(this.currentYear, this.currentGroup)
       .then(albumListPlaces => {
         this.albumListPlaces = albumListPlaces;
         let alp: AlbumListPlace;
@@ -81,27 +81,24 @@ export class YearlistListComponent implements OnInit {
       } );
   }
 
-  getAllUserRoles(): void {
-    console.log('getAllUserRoles');
-    this.userRoleService.getUserRoles()
-      .then(userRoles => this.userRoles = userRoles );
+  getAllUserGroups(): void {
+    this.userGroupService.getUserGroups()
+      .then(userGroups => this.userGroups = userGroups );
   }
 
   doTriggerYear(newYear) {
-    console.log('doTriggerYear: ' + newYear);
     this.currentYear = newYear;
 
-    console.log('currentRole: ' + this.currentRole);
+    console.log('currentGroup: ' + this.currentGroup);
     console.log('currentYear: ' + this.currentYear);
 
     this.getAllAlbumListPlace();
   }
 
-  doTriggerUserRole(newUserRole) {
-    console.log('doTriggerUserRole: ' + newUserRole);
-    this.currentRole = newUserRole;
+  doTriggerUserGroup(newUserGroup) {
+    this.currentGroup = newUserGroup;
 
-    console.log('currentRole: ' + this.currentRole);
+    console.log('currentGroup: ' + this.currentGroup);
     console.log('currentYear: ' + this.currentYear);
 
 

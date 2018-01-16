@@ -41,7 +41,7 @@ export class GenreListComponent implements OnInit {
     }
   }
 
-  deleteUserRole(genre: Genre) {
+  deleteGenre(genre: Genre) {
     console.log('Delete Genre: ' + genre.name);
     let promise = this.genreService.deleteGenre(genre.id);
     this.reloadPage();

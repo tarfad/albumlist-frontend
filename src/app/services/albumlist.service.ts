@@ -20,8 +20,8 @@ export class AlbumListService {
     return this.mainApiUrl + this.specifiedApiUrl;
   }
 
-  getAlbumList(year: number, userRole: number):  Promise<AlbumListPlace[]> {
-    return this.http.get(this.getApiUrl() + year + '/' + userRole + '/')
+  getAlbumList(year: number, userGroup: number):  Promise<AlbumListPlace[]> {
+    return this.http.get(this.getApiUrl() + year + '/' + userGroup + '/')
       .toPromise()
       .then(response => response.json() as AlbumListPlace[])
       .catch(this.handleError);

@@ -11,20 +11,20 @@
         </header>
       </section>
       <section>
-        <form novalidate [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+        <form novalidate [formGroup]="userGroupForm" (ngSubmit)="onSubmit()">
           <fieldset>
             <div class="form-group">
               <label>Name</label>
               <input type="text"
                      class="form-control"
-                     formControlName="roleName">
+                     formControlName="groupName">
             </div>
           </fieldset>
 
-          <button type="submit" class="btn btn-primary"  [disabled]="!userRoleForm.valid" >Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectUserRolePage()">Cancel</button>
+          <button type="submit" class="btn btn-primary"  [disabled]="!userGroupForm.valid" >Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectUserGroupPage()">Cancel</button>
           <!--
-          <pre>{{userRoleForm.value | json}}</pre>
+          <pre>{{userGroupForm.value | json}}</pre>
           -->
         </form>
       </section>

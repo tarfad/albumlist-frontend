@@ -3,23 +3,23 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {User} from "../../model/User";
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserRole} from "../../model/UserRole";
-import {UserRoleService} from "../../services/userrole.service";
+import {UserGroup} from "../../model/UserGroup";
+import {UserGroupService} from "../../services/usergroup.service";
 
 
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.css'],
-  providers: [UserService, UserRoleService]
+  providers: [UserService, UserGroupService]
 })
 export class UserCreateComponent implements OnInit, OnDestroy {
 
   id: number;
   user: User;
 
-  userRoleId: number;
-  userRoles: UserRole[];
+  userGroupId: number;
+  userGroups: UserGroup[];
 
   userForm: FormGroup;
   private sub: any;
@@ -27,7 +27,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userService: UserService,
-              private userRoleService: UserRoleService
+              private userGroupService: UserGroupService
   ) { }
 
   ngOnInit() {
@@ -41,26 +41,26 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       userName: new FormControl('', Validators.required),
       fullName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
-      theUserRole: new FormControl('', Validators.required)
+      theUserGroup: new FormControl('', Validators.required)
     });
 
-    this.userRoleService.getUserRoles()
-      .then(userRoles => this.userRoles = userRoles );
+    this.userGroupService.getUserGroups()
+      .then(userGroups => this.userGroups = userGroups );
 
     if (this.id) { //edit form
       console.log('EDIT');
       this.userService.findById(this.id).
       then(user => {
         this.id = user.id;
-        let userRoleId = null;
-        if(user.userRole != null) {
-          userRoleId = user.userRole.id;
+        let userGroupId = null;
+        if(user.userGroup != null) {
+          userGroupId = user.userGroup.id;
         }
         this.userForm.patchValue({
           userName: user.userName,
           fullName: user.fullName,
           password: 'SET_PASSWORD',
-          theUserRole: userRoleId
+          theUserGroup: userGroupId
         });
       } );
 
@@ -80,15 +80,15 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.userForm.valid) {
-      let userRole =
-        new UserRole(this.userForm.controls['theUserRole'].value, '');
+      let userGroup =
+        new UserGroup(this.userForm.controls['theUserGroup'].value, '');
 
       if (this.id) {
         let user: User = new User(this.id,
           this.userForm.controls['userName'].value,
           this.userForm.controls['password'].value,
           this.userForm.controls['fullName'].value,
-          userRole);
+          userGroup);
         console.log(JSON.stringify(user));
         let userPromise = this.userService.updateUser(user);
       } else {
@@ -96,7 +96,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
           this.userForm.controls['userName'].value,
           this.userForm.controls['password'].value,
           this.userForm.controls['fullName'].value,
-          userRole);
+          userGroup);
         let userPromise2 = this.userService.saveUser(user);
 
       }
