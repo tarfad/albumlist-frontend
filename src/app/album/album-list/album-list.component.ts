@@ -21,10 +21,13 @@ export class AlbumListComponent implements OnInit {
   private currentSearchString: string;
   private currentGenre: number;
 
-  private albums: Album[];
+  albums: Album[];
 
-  private years: number[];
-  private genres: Genre[];
+  theYearX: any;
+  theGenreX: any;
+
+  years: number[];
+  genres: Genre[];
 
   searchForm: FormGroup;
 

@@ -15,7 +15,7 @@
                     <select class="form-control"
                             formControlName="theYear"
                             (ngModelChange)="doTriggerYear($event)"
-                            [(ngModel)]="theYear"
+                            [(ngModel)]="theYearX"
                     >
                       <option value="-1">Please select a year</option>
 
@@ -32,7 +32,7 @@
                     <select class="form-control"
                             formControlName="theUser"
                             (ngModelChange)="doTriggerUser($event)"
-                            [(ngModel)]="theUser"
+                            [(ngModel)]="theUserX"
                     >
                       <option value="-1">Please select an user</option>
                       <option *ngFor="let u of users"
@@ -54,7 +54,7 @@
               <select class="form-control"
                       formControlName="theAlbum1"
                       (ngModelChange)="doTriggerAlbum(1, $event)"
-                      [(ngModel)]="theAlbum1"
+                      [(ngModel)]="theAlbum1X"
               >
                 <option value="-1" class="bg-danger text-danger text-white">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -69,7 +69,7 @@
               <select class="form-control"
                       formControlName="theAlbum2"
                       (ngModelChange)="doTriggerAlbum(2, $event)"
-                      [(ngModel)]="theAlbum2"
+                      [(ngModel)]="theAlbum2X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -84,7 +84,7 @@
               <select class="form-control"
                       formControlName="theAlbum3"
                       (ngModelChange)="doTriggerAlbum(3, $event)"
-                      [(ngModel)]="theAlbum3"
+                      [(ngModel)]="theAlbum3X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -99,7 +99,7 @@
               <select class="form-control"
                       formControlName="theAlbum4"
                       (ngModelChange)="doTriggerAlbum(4, $event)"
-                      [(ngModel)]="theAlbum4"
+                      [(ngModel)]="theAlbum4X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -114,7 +114,7 @@
               <select class="form-control"
                       formControlName="theAlbum5"
                       (ngModelChange)="doTriggerAlbum(5, $event)"
-                      [(ngModel)]="theAlbum5"
+                      [(ngModel)]="theAlbum5X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -129,7 +129,7 @@
               <select class="form-control"
                       formControlName="theAlbum6"
                       (ngModelChange)="doTriggerAlbum(6, $event)"
-                      [(ngModel)]="theAlbum6"
+                      [(ngModel)]="theAlbum6X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -144,7 +144,7 @@
               <select class="form-control"
                       formControlName="theAlbum7"
                       (ngModelChange)="doTriggerAlbum(7, $event)"
-                      [(ngModel)]="theAlbum7"
+                      [(ngModel)]="theAlbum7X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -159,7 +159,7 @@
               <select class="form-control"
                       formControlName="theAlbum8"
                       (ngModelChange)="doTriggerAlbum(8, $event)"
-                      [(ngModel)]="theAlbum8"
+                      [(ngModel)]="theAlbum8X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -174,7 +174,7 @@
               <select class="form-control"
                       formControlName="theAlbum9"
                       (ngModelChange)="doTriggerAlbum(9, $event)"
-                      [(ngModel)]="theAlbum9"
+                      [(ngModel)]="theAlbum9X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -189,7 +189,7 @@
               <select class="form-control"
                       formControlName="theAlbum10"
                       (ngModelChange)="doTriggerAlbum(10, $event)"
-                      [(ngModel)]="theAlbum10"
+                      [(ngModel)]="theAlbum10X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -206,7 +206,7 @@
               <select class="form-control"
                       formControlName="theAlbum11"
                       (ngModelChange)="doTriggerAlbum(11, $event)"
-                      [(ngModel)]="theAlbum11"
+                      [(ngModel)]="theAlbum11X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -221,7 +221,7 @@
               <select class="form-control"
                       formControlName="theAlbum12"
                       (ngModelChange)="doTriggerAlbum(12, $event)"
-                      [(ngModel)]="theAlbum12"
+                      [(ngModel)]="theAlbum12X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -236,7 +236,7 @@
               <select class="form-control"
                       formControlName="theAlbum13"
                       (ngModelChange)="doTriggerAlbum(13, $event)"
-                      [(ngModel)]="theAlbum13"
+                      [(ngModel)]="theAlbum13X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -251,7 +251,7 @@
               <select class="form-control"
                       formControlName="theAlbum14"
                       (ngModelChange)="doTriggerAlbum(14, $event)"
-                      [(ngModel)]="theAlbum14"
+                      [(ngModel)]="theAlbum14X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -266,7 +266,7 @@
               <select class="form-control"
                       formControlName="theAlbum15"
                       (ngModelChange)="doTriggerAlbum(15, $event)"
-                      [(ngModel)]="theAlbum15"
+                      [(ngModel)]="theAlbum15X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -281,7 +281,7 @@
               <select class="form-control"
                       formControlName="theAlbum16"
                       (ngModelChange)="doTriggerAlbum(16, $event)"
-                      [(ngModel)]="theAlbum16"
+                      [(ngModel)]="theAlbum16X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -296,7 +296,7 @@
               <select class="form-control"
                       formControlName="theAlbum17"
                       (ngModelChange)="doTriggerAlbum(17, $event)"
-                      [(ngModel)]="theAlbum17"
+                      [(ngModel)]="theAlbum17X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -311,7 +311,7 @@
               <select class="form-control"
                       formControlName="theAlbum18"
                       (ngModelChange)="doTriggerAlbum(18, $event)"
-                      [(ngModel)]="theAlbum18"
+                      [(ngModel)]="theAlbum18X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -326,7 +326,7 @@
               <select class="form-control"
                       formControlName="theAlbum19"
                       (ngModelChange)="doTriggerAlbum(19, $event)"
-                      [(ngModel)]="theAlbum19"
+                      [(ngModel)]="theAlbum19X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -341,7 +341,7 @@
               <select class="form-control"
                       formControlName="theAlbum20"
                       (ngModelChange)="doTriggerAlbum(20, $event)"
-                      [(ngModel)]="theAlbum20"
+                      [(ngModel)]="theAlbum20X"
               >
                 <option value="-1">Please select an album</option>
                 <option *ngFor="let a of albums"
@@ -357,7 +357,7 @@
           </fieldset>
 
           <button type="submit" class="btn btn-primary"  [disabled]="!albumForm.valid" >Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectAlbumPage()">Cancel</button>
+          <button type="button" class="btn btn-warning" (click)="redirectVotePage()">Cancel</button>
         <!--
         <pre>{{albumForm.value | json}}</pre>
         -->

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {EnvironmentSpecificService} from "./core/services/environment-specific.service";
+import {EnvSpecific} from "./core/models/Env-specific";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor() {
+    console.log('AppComponent - constructor');
+  }
 }

@@ -29,6 +29,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy, AfterContentInit
   artistId: number;
   artists: Artist[];
 
+  theYearX: any;
+
   genres: Genre[];
 
   albumForm: FormGroup;

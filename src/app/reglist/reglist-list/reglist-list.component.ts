@@ -29,6 +29,29 @@ export class ReglistListComponent implements OnInit, OnChanges {
   albumForm: FormGroup;
   private sub: any;
 
+  theYearX: any;
+  theUserX: any;
+  theAlbum1X: any;
+  theAlbum2X: any;
+  theAlbum3X: any;
+  theAlbum4X: any;
+  theAlbum5X: any;
+  theAlbum6X: any;
+  theAlbum7X: any;
+  theAlbum8X: any;
+  theAlbum9X: any;
+  theAlbum10X: any;
+  theAlbum11X: any;
+  theAlbum12X: any;
+  theAlbum13X: any;
+  theAlbum14X: any;
+  theAlbum15X: any;
+  theAlbum16X: any;
+  theAlbum17X: any;
+  theAlbum18X: any;
+  theAlbum19X: any;
+  theAlbum20X: any;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private configService: ConfigService,
@@ -156,6 +179,10 @@ export class ReglistListComponent implements OnInit, OnChanges {
     });
 
     this.doTriggerUser(-1);
+  }
+
+  redirectVotePage() {
+    this.router.navigate(['/reglist']);
   }
 
 }

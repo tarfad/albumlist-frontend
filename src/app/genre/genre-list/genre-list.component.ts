@@ -12,7 +12,7 @@ import {GenreService} from "../../services/genre.service";
 })
 export class GenreListComponent implements OnInit {
 
-  private genres: Genre[];
+  genres: Genre[];
 
   constructor(private router: Router,
               private location: Location,

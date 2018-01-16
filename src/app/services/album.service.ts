@@ -1,45 +1,47 @@
-import { Injectable } from '@angular/core';
-import { Album } from '../model/Album';
-import { Headers, Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Album} from '../model/Album';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Observable } from "rxjs/Observable";
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class AlbumService {
 
-  private apiUrl = 'http://localhost:8080/api/albums/';
+  private mainApiUrl: string;
+  private specifiedApiUrl = 'albums/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private envSpecificSvc: EnvironmentSpecificService) {
+    this.mainApiUrl = envSpecificSvc.envSpecific.mainApiUrl;
+  }
+
+  getApiUrl(): string {
+    return this.mainApiUrl + this.specifiedApiUrl;
+  }
 
   getAlbums():  Promise<Album[]> {
-    console.log('AlbumService: getAlbums');
-    console.log('Call: ' + this.apiUrl);
-    return this.http.get(this.apiUrl)
+    return this.http.get(this.getApiUrl())
       .toPromise()
       .then(response => response.json() as Album[])
       .catch(this.handleError);
   }
 
   findById(id: number): Promise<Album> {
-    return this.http.get(this.apiUrl + id)
+    return this.http.get(this.getApiUrl() + id)
       .toPromise()
       .then(response => response.json() as Album)
       .catch(this.handleError);
   }
 
   getAlbumsByYear(year: number):  Promise<Album[]> {
-    console.log('getAlbumsByYear: ' + year);
-
-    console.log('Call: ' + this.apiUrl + "year/" + year);
-    return this.http.get(this.apiUrl + "year/" + year)
+    return this.http.get(this.getApiUrl() + "year/" + year)
       .toPromise()
       .then(response => response.json() as Album[])
       .catch(this.handleError);
   }
 
   searchAlbums(year: number, genreId: number, currentSearchString: string):  Promise<Album[]> {
-    console.log('searchAlbums: ' + year);
     if(year == null) {
       year = -1;
     }
@@ -47,29 +49,27 @@ export class AlbumService {
       genreId = -1;
     }
 
-    let param = {params: {'year': year, 'genreId': genreId,'searchString': currentSearchString}}
-    console.log(param);
-    return this.http.get(this.apiUrl + "search/",param )
+    let param = {params: {'year': year, 'genreId': genreId,'searchString': currentSearchString}};
+    return this.http.get(this.getApiUrl() + "search/",param )
       .toPromise()
       .then(response => response.json() as Album[])
       .catch(this.handleError);
   }
 
   saveAlbum(albumsData: Album): Promise<Album> {
-    return this.http.post(this.apiUrl, albumsData)
+    return this.http.post(this.getApiUrl(), albumsData)
       .toPromise().then(response => response.json() as Album)
       .catch(this.handleError);
   }
 
   deleteAlbum(id: number): Promise<any> {
-    return this.http.delete(this.apiUrl + id)
+    return this.http.delete(this.getApiUrl() + id)
       .toPromise()
       .catch(this.handleError);
   }
 
   updateAlbum(albumsData: Album): Promise<Album> {
-    console.log('updateAlbum');
-    return this.http.put(this.apiUrl + albumsData.id, albumsData)
+    return this.http.put(this.getApiUrl() + albumsData.id, albumsData)
       .toPromise()
       .then(response => response.json() as Album)
       .catch(this.handleError);

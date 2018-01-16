@@ -1,0 +1,6 @@
+{
+  "yearStart": 2010,
+  "yearEnd": 2017,
+
+  "mainApiUrl": "http://localhost:8080/api/"
+}

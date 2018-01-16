@@ -3,16 +3,25 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {AlbumListPlace} from "../beans/AlbumListPlace";
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class AlbumListService {
 
-  private apiUrl = 'http://localhost:8080//api/albumlist/';
+  private mainApiUrl: string;
+  private specifiedApiUrl = 'albumlist/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private envSpecificSvc: EnvironmentSpecificService) {
+    this.mainApiUrl = envSpecificSvc.envSpecific.mainApiUrl;
+  }
+
+  getApiUrl(): string {
+    return this.mainApiUrl + this.specifiedApiUrl;
+  }
 
   getAlbumList(year: number, userRole: number):  Promise<AlbumListPlace[]> {
-    return this.http.get(this.apiUrl + year + '/' + userRole + '/')
+    return this.http.get(this.getApiUrl() + year + '/' + userRole + '/')
       .toPromise()
       .then(response => response.json() as AlbumListPlace[])
       .catch(this.handleError);

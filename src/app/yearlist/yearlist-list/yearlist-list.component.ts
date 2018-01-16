@@ -19,15 +19,18 @@ import {AlbumListService} from "../../services/albumlist.service";
 })
 export class YearlistListComponent implements OnInit {
 
-  private years: number[];
-  private userRoles: UserRole[];
-  private users: User[];
-  private  albumListPlaces: AlbumListPlace[];
+  years: number[];
+  userRoles: UserRole[];
+  users: User[];
+  albumListPlaces: AlbumListPlace[];
 
   currentYear: number;
   currentRole: number;
 
   yearlistForm: FormGroup;
+
+  theYearX: any;
+  theUserRoleX: any;
 
   constructor(private router: Router,
               private location: Location,
@@ -110,6 +113,10 @@ export class YearlistListComponent implements OnInit {
   reloadPage() {
     console.log('reloadPage');
     location.reload();
+  }
+
+  onSubmit() {
+
   }
 
 

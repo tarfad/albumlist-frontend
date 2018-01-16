@@ -1,47 +1,54 @@
-import { Injectable } from '@angular/core';
-import { User } from '../model/User';
-import { Headers, Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {User} from '../model/User';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Observable } from "rxjs/Observable";
-import {URLSearchParams} from "@angular/http/src/url_search_params";
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api/users/';
+  private mainApiUrl: string;
+  private specifiedApiUrl = 'users/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private envSpecificSvc: EnvironmentSpecificService) {
+    this.mainApiUrl = envSpecificSvc.envSpecific.mainApiUrl;
+  }
+
+  getApiUrl(): string {
+    return this.mainApiUrl + this.specifiedApiUrl;
+  }
 
   getUsers():  Promise<User[]> {
-    return this.http.get(this.apiUrl)
+    return this.http.get(this.getApiUrl())
       .toPromise()
       .then(response => response.json() as User[])
       .catch(this.handleError);
   }
 
   findById(id: number): Promise<User> {
-    return this.http.get(this.apiUrl + id)
+    return this.http.get(this.getApiUrl() + id)
       .toPromise()
       .then(response => response.json() as User)
       .catch(this.handleError);
   }
 
   saveUser(userData: User): Promise<User> {
-    return this.http.post(this.apiUrl, userData, {params: {'password': userData.password}})
+    return this.http.post(this.getApiUrl(), userData, {params: {'password': userData.password}})
       .toPromise().then(response => response.json() as User)
       .catch(this.handleError);
   }
 
   deleteUser(id: number): Promise<any> {
-    return this.http.delete(this.apiUrl + id)
+    return this.http.delete(this.getApiUrl() + id)
       .toPromise()
       .catch(this.handleError);
   }
 
   updateUser(userData: User): Promise<User> {
     console.log('updateUser');
-    return this.http.put(this.apiUrl + userData.id, userData)
+    return this.http.put(this.getApiUrl() + userData.id, userData)
       .toPromise()
       .then(response => response.json() as User)
       .catch(this.handleError);
@@ -49,7 +56,7 @@ export class UserService {
 
   updatePassword(id: number, oldPassword: string, newPassword: string): Promise<User> {
     console.log('updateUser');
-    return this.http.put(this.apiUrl + 'changePassword', {params: {'id': id, 'oldPassword': oldPassword, 'newPassword': newPassword}})
+    return this.http.put(this.getApiUrl() + 'changePassword', {params: {'id': id, 'oldPassword': oldPassword, 'newPassword': newPassword}})
       .toPromise()
       .then(response => response.json() as User)
       .catch(this.handleError);

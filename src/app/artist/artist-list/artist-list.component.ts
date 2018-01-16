@@ -14,7 +14,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class ArtistListComponent implements OnInit {
 
-  private artists: Artist[];
+  artists: Artist[];
   private currentSearchString: string;
 
   searchForm: FormGroup;

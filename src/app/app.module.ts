@@ -14,6 +14,9 @@ import { HttpModule }    from '@angular/http';
 import {UserroleModule} from "./userrole/userrole.module";
 import {GenreModule} from "./genre/genre.module";
 
+import { CoreModule } from './core/core.module';
+import {WelcomeModule} from "./welcome/welcome.module";
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,13 +25,15 @@ import {GenreModule} from "./genre/genre.module";
     BrowserModule,
     HttpModule,
     AppRoutingModule,
+    CoreModule,
     UserModule,
     UserroleModule,
     ArtistModule,
     AlbumModule,
     ReglistModule,
     YearlistModule,
-    GenreModule
+    GenreModule,
+    WelcomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

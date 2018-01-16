@@ -3,43 +3,51 @@ import {Artist} from '../model/Artist';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class ArtistService {
 
-  private apiUrl = 'http://localhost:8080/api/artists/';
+  private mainApiUrl: string;
+  private specifiedApiUrl = 'artists/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private envSpecificSvc: EnvironmentSpecificService) {
+    this.mainApiUrl = envSpecificSvc.envSpecific.mainApiUrl;
+  }
+
+  getApiUrl(): string {
+    return this.mainApiUrl + this.specifiedApiUrl;
+  }
 
   getArtists():  Promise<Artist[]> {
-    return this.http.get(this.apiUrl)
+    return this.http.get(this.getApiUrl())
       .toPromise()
       .then(response => response.json() as Artist[])
       .catch(this.handleError);
   }
 
   findById(id: number): Promise<Artist> {
-    return this.http.get(this.apiUrl + id)
+    return this.http.get(this.getApiUrl() + id)
       .toPromise()
       .then(response => response.json() as Artist)
       .catch(this.handleError);
   }
 
   saveArtist(artistsData: Artist): Promise<Artist> {
-    return this.http.post(this.apiUrl, artistsData)
+    return this.http.post(this.getApiUrl(), artistsData)
       .toPromise().then(response => response.json() as Artist)
       .catch(this.handleError);
   }
 
   deleteArtist(id: number): Promise<any> {
-    return this.http.delete(this.apiUrl + id)
+    return this.http.delete(this.getApiUrl() + id)
       .toPromise()
       .catch(this.handleError);
   }
 
   updateArtist(artistsData: Artist): Promise<Artist> {
-    console.log('updateArtist');
-    return this.http.put(this.apiUrl + artistsData.id, artistsData)
+    return this.http.put(this.getApiUrl() + artistsData.id, artistsData)
       .toPromise()
       .then(response => response.json() as Artist)
       .catch(this.handleError);
@@ -53,7 +61,7 @@ export class ArtistService {
   searchAtists(currentSearchString: string): Promise<Artist[]>  {
     let param = {params: {'searchString': currentSearchString}}
     console.log(param);
-    return this.http.get(this.apiUrl + "search/",param )
+    return this.http.get(this.getApiUrl() + "search/",param )
       .toPromise()
       .then(response => response.json() as Artist[])
       .catch(this.handleError);

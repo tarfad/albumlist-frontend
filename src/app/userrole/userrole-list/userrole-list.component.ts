@@ -11,7 +11,7 @@ import {UserRole} from "../../model/UserRole";
 })
 export class UserRoleListComponent implements OnInit {
 
-  private userRoles: UserRole[];
+  userRoles: UserRole[];
 
   constructor(private router: Router,
               private location: Location,

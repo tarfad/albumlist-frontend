@@ -1,16 +1,29 @@
 import {Injectable} from "@angular/core";
 import {validYears} from "../../environments/environment";
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class ConfigService {
 
-  getYears = function() {
-    console.log('getYears');
+  yearStart: number;
+  yearEnd: number;
+  years: number[];
+
+  constructor(private envSpecificSvc: EnvironmentSpecificService) {
+    this.yearStart = envSpecificSvc.envSpecific.yearStart;
+    this.yearEnd = envSpecificSvc.envSpecific.yearEnd;
+    this.loadYears();
+  }
+
+  private loadYears() {
     var result = [];
-    for (var i = validYears.yearStart; i <= validYears.yearEnd; i++) {
+    for (var i = this.yearStart; i <= this.yearEnd; i++) {
       result.push(i);
     }
-    return result;
-  };
+    this.years = result;
+  }
 
+  getYears = function () {
+    return this.years;
+  };
 }

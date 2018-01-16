@@ -1,51 +1,35 @@
-import {Component, Injectable} from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {AlbumPlace} from "../model/AlbumPlace";
 import {AlbumPlaceBean} from "../beans/AlbumPlaceBean";
+import {EnvironmentSpecificService} from "../core/services/environment-specific.service";
 
 @Injectable()
 export class AlbumPlaceService {
 
-  private apiUrl = 'http://localhost:8080/api/albumplace/';
+  private mainApiUrl: string;
+  private specifiedApiUrl = 'albumplace/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private envSpecificSvc: EnvironmentSpecificService) {
+    this.mainApiUrl = envSpecificSvc.envSpecific.mainApiUrl;
+  }
+
+  getApiUrl(): string {
+    return this.mainApiUrl + this.specifiedApiUrl;
+  }
 
   getAlbumsByYearAndUser(year: number, userId: number):  Promise<AlbumPlace[]> {
-    console.log('AlbumService: getAlbumsByYearAndUser');
-    return this.http.get(this.apiUrl + "year/", {params: {'year': year, 'id': userId}})
+    return this.http.get(this.getApiUrl() + "year/", {params: {'year': year, 'id': userId}})
       .toPromise()
       .then(response => response.json() as AlbumPlace[])
       .catch(this.handleError);
   }
 
-  /*
-  saveAlbumPlace(albumsData: AlbumPlace): Promise<AlbumPlace> {
-    return this.http.post(this.apiUrl, albumsData)
-      .toPromise().then(response => response.json() as AlbumPlace)
-      .catch(this.handleError);
-  }
-
-  deleteAlbumPlace(id: number): Promise<any> {
-    return this.http.delete(this.apiUrl + id)
-      .toPromise()
-      .catch(this.handleError);
-  }
-
-  updateAlbumPlace(albumsData: AlbumPlace): Promise<AlbumPlace> {
-    console.log('updateAlbum');
-    return this.http.put(this.apiUrl + albumsData.id, albumsData)
-      .toPromise()
-      .then(response => response.json() as AlbumPlace)
-      .catch(this.handleError);
-  }
-  */
-
   updateAlbumList(albumsDataData: AlbumPlaceBean): Promise<any> {
-    console.log('updateAlbum');
-    console.log('CALL: ' + this.apiUrl + 'list/update/');
-    return this.http.post(this.apiUrl + 'list/update/', albumsDataData)
+    return this.http.post(this.getApiUrl() + 'list/update/', albumsDataData)
       .toPromise()
       .catch(this.handleError);
   }

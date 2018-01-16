@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 
 import { User } from "../../model/User";
 import { UserService } from "../../services/user.service";
 
+
+import { EnvSpecific } from '../../core/models/Env-specific';
+import {EnvironmentSpecificService} from "../../core/services/environment-specific.service";
 
 @Component({
   selector: 'app-user-list',
@@ -14,14 +17,39 @@ import { UserService } from "../../services/user.service";
 })
 export class UserListComponent implements OnInit {
 
-  private users: User[];
+  users: User[];
+  private envSpecific: EnvSpecific;
 
   constructor(private router: Router,
               private location: Location,
-              private userService: UserService) { }
+              private userService: UserService,
+              private route: ActivatedRoute,
+              private envSpecificSvc: EnvironmentSpecificService) {
+  }
 
   ngOnInit() {
     console.log('ngOnInit - User');
+
+
+    console.log('this.envSpecificSvc.envSpecific.yearStart: ' + this.envSpecificSvc.envSpecific.yearStart);
+    console.log('this.envSpecificSvc.envSpecific.yearEnd: ' + this.envSpecificSvc.envSpecific.yearEnd);
+
+
+    //console.log('mainApiUrl:' + this.envSpecific.mainApiUrl);
+
+    /*
+    this.route.data
+      .subscribe((data: { envSpecific: EnvSpecific }) => {
+        console.log('subscribe');
+
+        console.info(data);
+
+        console.log('data.envSpecific.mainApiUrl: ' + data.envSpecific.mainApiUrl);
+        console.log('data.envSpecific.yearStart: ' + data.envSpecific.yearStart);
+        console.log('data.envSpecific.yearEnd: ' + data.envSpecific.yearEnd);
+      });
+    */
+
     this.getAllUsers();
   }
 
